@@ -76,7 +76,12 @@ class _ServiceState extends State<AgentService> {
   }
 
   void _setSecret() {
-    int _nextSecret = _rng.nextInt(_getTopValue());
+    int _nextSecret = 0;
+
+    do {
+      _nextSecret = _rng.nextInt(_getTopValue());
+    } while (_nextSecret == 0);
+
     if (_rng.nextBool()) {
         _nextSecret *= -1;
     }
@@ -214,6 +219,13 @@ class _ServiceState extends State<AgentService> {
     int _bottomValue = _getBottomValue();
     int _topValue = _getTopValue();
     int _remainingAttempts = (_maxAttempts - _attempts) + 1;
+    String _msg;
+
+    if (_attempts == 1) {
+      _msg = 'Aperte um botão para iniciar';
+    } else {
+      _msg = 'Última tentativa: $_position';
+    }
 
     List<Widget> _mainContent = <Widget>[
       _text(
@@ -224,7 +236,7 @@ class _ServiceState extends State<AgentService> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: _buttons()
       ),
-      _text('Posição atual: $_position', color: Colors.white),
+      _text('$_msg', color: Colors.white),
       _text('Tentativas restantes: $_remainingAttempts', color: Colors.white),
       _text('Nível: $_level', color: Colors.white),
       _text('Conquistas: $_hits', color: Colors.white),
