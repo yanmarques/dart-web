@@ -31,7 +31,7 @@ Future<String> upload(InMemoryFile file, Duration timeLimit) async {
     'mimeType': file.mimeType,
     'base64': file.base64
   };
-
+  print(params);
   String payload = json.encode(params);
 
   final headers = {
@@ -43,7 +43,7 @@ Future<String> upload(InMemoryFile file, Duration timeLimit) async {
         body: payload,
         headers: headers,
   ).timeout(timeLimit);
-
+  print(res.statusCode);
   if (res.statusCode != 200) {
     throw InvalidResponseException(res);
   }
