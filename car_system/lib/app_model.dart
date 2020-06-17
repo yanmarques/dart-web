@@ -1,9 +1,12 @@
 import 'dart:js';
 
+import 'package:car_system/domain/usuario.dart';
+import 'package:car_system/pages/cars/api.dart';
 import 'package:car_system/pages/cars/main.dart';
 import 'package:car_system/pages/default_page.dart';
 import 'package:car_system/pages/upload_page.dart';
 import 'package:car_system/pages/usuarios_page.dart';
+import 'package:car_system/utils/alert.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -75,6 +78,31 @@ class UploadModel with ChangeNotifier {
 
   showProgress() {
     _displayProgress = true;
+    notifyListeners();
+  }
+}
+
+class LoginModel with ChangeNotifier {
+  Usuario _user;
+  ErrorBag _errorBag;
+
+  bool isLoggedIn () => currentUser != null;
+
+  Usuario get currentUser => _user;
+  ErrorBag get lastErrors => _errorBag;
+
+  resetErrors() {
+    _errorBag = null;
+  }
+
+  attemptLogin(String username, String password) async {
+    try {
+      Usuario newUser = await login(username, password);
+      _user = newUser;
+    } catch(error, stackTrace) {
+      print('error: $error');
+      _errorBag = ErrorBag(error, stackTrace);
+    }
     notifyListeners();
   }
 }

@@ -13,6 +13,7 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider<AppModel>(create: (_) => AppModel()),
         ChangeNotifierProvider<UploadModel>(create: (_) => UploadModel()),
+        ChangeNotifierProvider<LoginModel>(create: (_) => LoginModel()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

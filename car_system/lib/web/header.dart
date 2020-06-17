@@ -1,6 +1,7 @@
+import 'package:car_system/app_model.dart';
 import 'package:flutter/material.dart';
-import 'package:car_system/domain/usuario.dart';
 import 'package:car_system/utils/alert.dart';
+import 'package:provider/provider.dart';
 
 class Header extends StatefulWidget {
   @override
@@ -25,11 +26,13 @@ class _HeaderState extends State<Header> {
   }
 
   _direita() {
+    LoginModel model = Provider.of<LoginModel>(context);
+
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
         Text(
-          usuario.nome,
+          model.currentUser.login,
           style: TextStyle(color: Colors.white, fontSize: 18),
         ),
         SizedBox(
@@ -37,7 +40,7 @@ class _HeaderState extends State<Header> {
         ),
         InkWell(
           child: CircleAvatar(
-            backgroundImage: NetworkImage(usuario.urlFoto),
+            backgroundImage: NetworkImage(model.currentUser.profileImage),
           ),
           onTap: () {
             // abre o popup menu

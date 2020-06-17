@@ -1,9 +1,11 @@
 import 'package:car_system/app_model.dart';
 import 'package:car_system/constantes.dart';
+import 'package:car_system/pages/login_page.dart';
 import 'package:car_system/web/body.dart';
 import 'package:car_system/web/header.dart';
 import 'package:car_system/web/menu.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -16,6 +18,14 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    LoginModel model = Provider.of<LoginModel>(context);
+
+    if (!model.isLoggedIn()) {
+      return Center(
+        child: LoginPage(),
+      );
+    }
+
     return Scaffold(
       body: Column(
         children: <Widget>[

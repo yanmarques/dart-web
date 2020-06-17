@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
 
+class ErrorBag {
+  final Error error;
+  final StackTrace traceBack;
+
+  ErrorBag(this.error, this.traceBack);
+}
 
 alert(BuildContext context, String msg, String titulo, {Function callback}) {
   showDialog(
