@@ -27,6 +27,7 @@ class _UploadPageState extends State<UploadPage> {
     } else {
       try {
         String url = await upload(
+            context,
             state.file,
             Duration(
                 seconds: 120

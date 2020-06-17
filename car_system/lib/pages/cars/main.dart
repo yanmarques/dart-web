@@ -1,18 +1,35 @@
-
 import 'package:car_system/pages/cars/car.dart';
 import 'package:car_system/pages/cars/api.dart' as api;
 import 'package:car_system/pages/cars/detail.dart';
+import 'package:car_system/pages/cars/store.dart';
 import 'package:car_system/utils/image.dart';
 import 'package:flutter/material.dart';
 
 class CarrosPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Scaffold(
-      body: _body(),
+      body: Column(
+        children: <Widget>[
+          RaisedButton(
+            child: Text('Cadastro'),
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => StorePage())
+              );
+            },
+          ),
+          Divider(),
+        // !!!! simplesmente parou de funcionar no meu ambiente
+          // !!!!! vou deixar descomentado, mas fique sabendo
+        // da um erro ": Bad state: Source maps are not done loading. 2 stack_trace_mapper.js:261:3"
+          _body(context)
+        ],
+      ),
     );
 
-  _body() => FutureBuilder(
-      future: api.fetchCars(),
+  _body(BuildContext context) => FutureBuilder(
+      future: api.fetchCars(context),
       builder: (context, result) {
         if (result.connectionState == ConnectionState.done) {
           if (result.hasError) {
